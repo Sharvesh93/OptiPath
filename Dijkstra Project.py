@@ -1,6 +1,6 @@
 import heapq
 import time
-import networkx as nx
+import networkx as nx # Networkx is used for graph
 import matplotlib.pyplot as plt
 import pandas as pd
 
@@ -40,7 +40,7 @@ Destination  : {destination}
 ---------------------------------------------------------
 Shortest Path Found :
    {' → '.join(path) if path else 'No path available'}
-   Total Distance: {distance:.2f} km 
+   Total Distance: {distance:.2f} km
 =========================================================
 Summary
 =========================================================
@@ -61,7 +61,7 @@ def generate_graph_image(graph, path, filename='graph.png'):
         for node, neighbors in graph.items():
             for neighbor, weight in neighbors.items():
                 G.add_edge(node, neighbor, weight=weight)
-        pos = nx.spring_layout(G, seed=45)  
+        pos = nx.spring_layout(G, seed=45)
         plt.figure(figsize=(10, 8))
         nx.draw(G, pos, with_labels=True, node_color='lightblue', node_size=500, font_size=16, font_weight='bold', edge_color='gray', width=2)
         if path:
@@ -75,7 +75,7 @@ def generate_graph_image(graph, path, filename='graph.png'):
         plt.close()
         print(f"Graph image saved as {filename}")
     except Exception as e:
-        raise Exception(f"Error generating graph image: {e}") 
+        raise Exception(f"Error generating graph image: {e}")
 
 if __name__ == "__main__":
     try:
@@ -92,7 +92,7 @@ if __name__ == "__main__":
             raise ValueError(f"File must contain columns: {required_columns}")
         graph = {}
         for _, row in df.iterrows():
-            from_node = str(row['From']).upper() 
+            from_node = str(row['From']).upper()
             to_node = str(row['To']).upper()
             weight = float(row['Weight'])
             if from_node not in graph:
