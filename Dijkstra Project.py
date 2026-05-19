@@ -46,28 +46,30 @@ def dijkstra(graph, start, end):
         raise Exception(f"Error in Dijkstra computation: {e}")
 
 
-def generate_report(source, destination, distance, path):
+def generate_report(source, destination, distance, path, computation_time):
     """Create a text report summarizing the shortest path result."""
     try:
         report = f"""
 =========================================================
         RESOURCE ALLOCATION REPORT
 =========================================================
+Source       : {source}
 Destination  : {destination}
 ---------------------------------------------------------
 Shortest Path Found :
    {' → '.join(path) if path else 'No path available'}
    Total Distance: {distance:.2f} km
+   Computation Time: {computation_time:.4f} seconds
 =========================================================
 Summary
 =========================================================
 Optimal Depot       : {source}
 Total Nodes Covered : {len(path)}
 Edges Traversed     : {len(path) - 1 if path else 0}
+Path Status         : {'Success' if path else 'Unreachable'}
 ---------------------------------------------------------
 """
 
-        # Save the generated report to a text file for later reference
         with open('output.txt', 'w', encoding='utf-8') as f:
             f.write(report)
         return report
@@ -178,6 +180,6 @@ if __name__ == "__main__":
     end_time = time.time()
     computation_time = end_time - start_time
 
-    report = generate_report(graph, start_node, end_node, distance, path, computation_time)
+    report = generate_report(start_node, end_node, distance, path, computation_time)
     print(report)
     generate_graph_image(graph, path)
